@@ -1,23 +1,39 @@
-// Test
+#include "cart.h"
 
-
-cart::cart()
+Cart::Cart(string name)
 {
-    myCartPrice = 0;
+    userName = name;
+    cartPrice = 0;
 }
 
-void cart::updateCount(char item, int cnt)
-{
-    if (item < 'A' || item > 'Z')
-        Throw "Invalid item name";
-
-    itemCount['A'] = cnt;
-}
-
-int cart::getCnt(char item)
+void Cart::updateItemCnt(char item, int cnt)
 {
     if (item < 'A' || item > 'Z')
-        Throw "Invalid item name";
+        throw "Invalid item name";
 
-    return itemCount[item-'A'];
+    itemsCnts[item] = cnt;
 }
+
+int Cart::getItemCnt(char item)
+{
+    if (item < 'A' || item > 'Z')
+        throw "Invalid item name";
+
+    return itemsCnts[item];
+}
+
+map<char, int> Cart::getItemsAndCnts() const
+{
+    return itemsCnts;
+}
+
+int Cart::getCartPrice()
+{
+    return cartPrice;
+}
+
+void Cart::updateCartPrice(int price)
+{
+    cartPrice = price;
+}
+

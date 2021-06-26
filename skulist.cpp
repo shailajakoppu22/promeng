@@ -1,14 +1,22 @@
-// Test
+#include "skulist.h"
 
 SkuList::SkuList()
 {
-    itemsPrices = vector<int>(MAX_ITEMS, 0);
+    skuPrices = vector<int>(MAX_ITEMS, 0);
 }
 
-void SkuList::initPrice(char item, int price)
+void SkuList::addSkuPrice(char sku, int price)
 {
-    if (item < 'A' || item > 'Z')
-        Throw "Invalid item name";
+    if (sku < 'A' || sku > 'Z')
+        throw invalid_argument("Invalid SKU name");
 
-    itemPrices[item-'A'] = price;
+    skuPrices[sku-'A'] = price;
+}
+
+int SkuList::getSkuPrice(char sku) const
+{
+    if (sku < 'A' || sku > 'Z')
+        throw invalid_argument("Invalid SKU name");
+
+    return skuPrices[sku-'A'];
 }

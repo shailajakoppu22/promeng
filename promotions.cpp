@@ -31,7 +31,7 @@ int PromotionEngine::applyPromotion(const SkuList& skuList, map<char, int>& cart
     int price = 0;
     switch(prom.promotionType)
     {
-        case nSKU:   // apply romotion of type - multiple of a item
+        case nSKU:   // apply romotion of type 1 - multiple of a item
         {
             int curCnt = cartItemsAndCnts[prom.items[0]];
             int minCntForProm = prom.counts[0];
@@ -43,7 +43,7 @@ int PromotionEngine::applyPromotion(const SkuList& skuList, map<char, int>& cart
             }
             break;
         }
-        case SKU1_SKU2:  // apply promotion of type - different items buying together
+        case SKU1_SKU2:  // apply promotion of type 2 - different items buying together
         {
             int sku1 = prom.items[0];
             int sku2 = prom.items[1];
@@ -52,6 +52,7 @@ int PromotionEngine::applyPromotion(const SkuList& skuList, map<char, int>& cart
             if (sku1Cnt > 0 && sku2Cnt > 0)
             {
                 price += prom.promotionPrice;
+                // currently only cnt 1 considered for each item in this promotion type
                 cartItemsAndCnts[sku1] -= 1;
                 cartItemsAndCnts[sku2] -= 1;
             }

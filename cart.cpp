@@ -22,6 +22,7 @@ int Cart::getItemCnt(char item)
     return itemsCnts[item];
 }
 
+// Returns map of items in the cart to quantity of each
 map<char, int> Cart::getItemsAndCnts() const
 {
     return itemsCnts;

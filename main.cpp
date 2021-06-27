@@ -2,7 +2,7 @@
 #include "cart.h"
 #include "promotions.h"
 
-bool testCase1(SkuList& skuList, PromotionEngine& promotions)
+void testCase1_A1B1C1(SkuList& skuList, PromotionEngine& promotions)
 {
     Cart myCart("User1");
     myCart.updateItemCnt('A', 1);
@@ -12,11 +12,12 @@ bool testCase1(SkuList& skuList, PromotionEngine& promotions)
     int price = promotions.calculateCartPrice(skuList, myCart);
 
     if (100 == price)
-        return true;
-    return false;
+        cout << __FUNCTION__ << ": PASS \n";
+    else
+        cout << __FUNCTION__ << ": FAIL \n";
 }
 
-bool testCase2(SkuList& skuList, PromotionEngine& promotions)
+void testCase2_A5B5C1(SkuList& skuList, PromotionEngine& promotions)
 {
     Cart myCart("User2");
     myCart.updateItemCnt('A', 5);
@@ -26,11 +27,12 @@ bool testCase2(SkuList& skuList, PromotionEngine& promotions)
     int price = promotions.calculateCartPrice(skuList, myCart);
 
     if (370 == price)
-        return true;
-    return false;
+        cout << __FUNCTION__ << ": PASS \n";
+    else
+        cout << __FUNCTION__ << ": FAIL \n";
 }
 
-bool testCase3(SkuList& skuList, PromotionEngine& promotions)
+void testCase3_A3B5C1D1(SkuList& skuList, PromotionEngine& promotions)
 {
     Cart myCart("User3");
     myCart.updateItemCnt('A', 3);
@@ -41,8 +43,34 @@ bool testCase3(SkuList& skuList, PromotionEngine& promotions)
     int price = promotions.calculateCartPrice(skuList, myCart);
 
     if (280 == price)
-        return true;
-    return false;
+        cout << __FUNCTION__ << ": PASS \n";
+    else
+        cout << __FUNCTION__ << ": FAIL \n";
+}
+
+void testCase4_empty(SkuList& skuList, PromotionEngine& promotions)
+{
+    Cart myCart("User4");
+
+    int price = promotions.calculateCartPrice(skuList, myCart);
+
+    if (0 == price)
+        cout << __FUNCTION__ << ": PASS \n";
+    else
+        cout << __FUNCTION__ << ": FAIL \n";
+}
+
+void testCase5_noDiscount(SkuList& skuList, PromotionEngine& promotions)
+{
+    Cart myCart("User5");
+    myCart.updateItemCnt('X', 3);
+
+    int price = promotions.calculateCartPrice(skuList, myCart);
+
+    if (0 == price)
+        cout << __FUNCTION__ << ": PASS \n";
+    else
+        cout << __FUNCTION__ << ": FAIL \n";
 }
 
 int main()
@@ -63,9 +91,11 @@ int main()
         promEng.addPromotion({'C', 'D'}, {1, 1}, 30, SKU1_SKU2);
 
         // Test with different carts
-        cout << "TestCase 1: " << (testCase1(skuList, promEng) ? "PASSED" : "FAILED") <<endl;
-        cout << "TestCase 2: " << (testCase2(skuList, promEng) ? "PASSED" : "FAILED") <<endl;
-        cout << "TestCase 3: " << (testCase2(skuList, promEng) ? "PASSED" : "FAILED") <<endl;
+        testCase1_A1B1C1(skuList, promEng);
+        testCase2_A5B5C1(skuList, promEng);
+        testCase3_A3B5C1D1(skuList, promEng);
+        testCase4_empty(skuList, promEng);
+        testCase5_noDiscount(skuList, promEng);
 
     }
     catch(const std::exception& e)
